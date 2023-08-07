@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job\Job;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $jobs = Job::select()->take(5)->orderby('id','desc')->get();
+        $totalJobs = Job::all()->count();
+
+        return view('home',compact('jobs','totalJobs'));
     }
 }
