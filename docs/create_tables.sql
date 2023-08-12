@@ -87,3 +87,24 @@ create table applications
 
 ALTER TABLE applications
 ADD COLUMN job_id INT(10) not null AFTER cv;
+
+alter table users
+add column image varchar(255) default "pic.jpg" not null after password;
+
+create table searches 
+(
+  id int(10) PRIMARY KEY AUTO_INCREMENT,
+  keyword varchar(255) not null,
+  created_at timestamp default current_timestamp,
+  updated_at timestamp default current_timestamp
+);
+
+create table admins
+(
+  id int(10) PRIMARY KEY AUTO_INCREMENT,
+  name varchar(255) not null,
+  email varchar(255) not null,
+  password varchar(255) not null,
+  created_at timestamp default current_timestamp,
+  updated_at timestamp default current_timestamp
+);

@@ -86,6 +86,7 @@
 
             <div class="row mb-5">
               <div class="col-6">
+                @if(isset(Auth::user()->id))
                 <form action="{{ route('save.job') }}" method="post">
                 @csrf
                 <input name="job_id" type="hidden" value="{{ $job->id }}">
@@ -103,6 +104,7 @@
 
                 <!--add text-danger to it to make it read-->
                 </form>
+                @endif
               </div>
               <div class="col-6">
 
@@ -114,16 +116,20 @@
                 <input name="job_region" type="hidden" value="{{ $job->job_region }}">
                 <input name="job_type" type="hidden" value="{{ $job->job_type }}">
                 <input name="company" type="hidden" value="{{ $job->company }}">
-                @if($appliedJob > 0)
-                <button class="btn btn-block btn-primary btn-md" disabled>You applied for this job</button>
+                @if(isset(Auth::user()->id))
+                  @if($appliedJob > 0)
+                    <button class="btn btn-block btn-primary btn-md" disabled>You applied for this job</button>
+                  @else
+                    <button type="submit" name="submit" class="btn btn-block btn-primary btn-md">Apply Now</button>
+                  @endif
                 @else
-                <button type="submit" name="submit" class="btn btn-block btn-primary btn-md">Apply Now</button>
+                    <a href="{{ route('login') }}" class="btn btn-block btn-primary btn-md" >Login to apply for this job</a>
                 @endif
                 </form>
               </div>
             </div>
-
           </div>
+
           <div class="col-lg-4">
             <div class="bg-light p-3 border rounded mb-4">
               <h3 class="text-primary  mt-3 h5 pl-3 mb-3 ">Job Summary</h3>
@@ -148,7 +154,16 @@
               </div>
             </div>
 
-          </div>
+
+            <div class="bg-light mt-5 p-5 border rounded mb-4">
+              <h3 class="text-primary  h5 pl-3 mb-3 ">Categories</h3>
+              <ul class="list-unstyled pl-3 mb-0">
+                @foreach ($categories as $category)
+                  <li class="mb-2"><a class="text-decoration-none" href="{{ route('categories.single',$category->name) }}">{{ $category->name }}</a></li>
+                @endforeach
+              </ul>
+            </div>
+
         </div>
       </div>
     </section>
