@@ -108,3 +108,11 @@ create table admins
   created_at timestamp default current_timestamp,
   updated_at timestamp default current_timestamp
 );
+
+ALTER TABLE jobs MODIFY jobdescription TEXT;
+ALTER TABLE jobs MODIFY responsibilities TEXT;
+ALTER TABLE jobs MODIFY education_experience TEXT;
+ALTER TABLE jobs MODIFY otherbenifits TEXT;
+
+ALTER TABLE applications
+ADD COLUMN email varchar(255) not null AFTER user_id;

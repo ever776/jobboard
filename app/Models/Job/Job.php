@@ -26,6 +26,7 @@ class Job extends Model
         'responsibilities',
         'education_experience',
         'otherbenifits',
+        'category',
         'image',
     ];
 
